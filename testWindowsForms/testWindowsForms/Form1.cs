@@ -21,8 +21,8 @@ namespace testWindowsForms
             //MessageBox.Show(doc.body.outerHtml);
 
             webBrowser1.Url = new Uri("https://secure.sahibinden.com/giris/?return_url=%2Findex.php");
-            //webBrowser1.Document.GetElementById("username").SetAttribute("value", "cagatayyapici@windowslive.com");
-            //webBrowser1.Document.GetElementById("password").SetAttribute("value", "kemence85");
+            webBrowser1.Document.GetElementById("username").SetAttribute("value", "cagatayyapici@windowslive.com");
+            webBrowser1.Document.GetElementById("password").SetAttribute("value", "kemence85");
 
         }
     }

@@ -20,6 +20,7 @@ namespace AddParserSrv.Classes
     public static class Parser
     {
         #region LocalVariables
+
         enum SearchType
         {
             Mah,
@@ -111,7 +112,8 @@ namespace AddParserSrv.Classes
                             addr.Bina = word[0];
                             break;
                         case SearchType.Cad:
-                            addr.Cadde = word[0];
+                            addr.Cadde = removeUnwanted(word[0]);
+
                             break;
                         case SearchType.Site:
                             addr.Site = word[0];
@@ -135,17 +137,9 @@ namespace AddParserSrv.Classes
 
                             addr.Bolge = word[2];
 
-                           addr.Bolge= specialCases(addr.Bolge);
+                            addr.Bolge = specialCases(addr.Bolge);
 
-                            //if (addr.Bolge.Contains("emniyet"))
-                            //{
-                            //    addr.Bolge = word[2] + " " + MissingWords.mudurlugu;
-                            //}
-                            //if (addr.Bolge.Contains("ceza"))
-                            //{
 
-                            //    addr.Bolge = word[2] + MissingWords.evi;
-                            //}
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -241,11 +235,29 @@ namespace AddParserSrv.Classes
         ///for special cases only
         /// </summary>
         /// 
+        private static string removeUnwanted(string completeWord)
+        {
+            string tempString = "";
+            string[] arrUnwanted = { "mudurlugu", "hastanesi", "cezaevi" };
+            tempString = completeWord;
+            foreach (var item in arrUnwanted)
+            {
+                if (completeWord.Contains(item))
+                {
+                    tempString = tempString.Replace(item, "");
+                }
+
+            }
+
+            return tempString;
+
+        }
+
         private static string specialCases(string completeString)
         {
 
 
-            if (completeString.Contains("emniyet"))  completeString = completeString + " " + MissingWords.mudurlugu;
+            if (completeString.Contains("emniyet")) completeString = completeString + " " + MissingWords.mudurlugu;
 
             if (completeString.Contains("ceza")) completeString = completeString + " " + MissingWords.evi;
 
@@ -260,8 +272,6 @@ namespace AddParserSrv.Classes
             return (address.Contains("emniyetmudurlugu")) ? address.Replace("emniyetmudurlugu", "emniyet mudurlugu ") : address;
 
         }
-
-
 
         private static string ChangeTurkishToEnglish(string turkish)
         {
