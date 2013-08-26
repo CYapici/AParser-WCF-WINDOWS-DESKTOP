@@ -35,6 +35,17 @@ namespace AddParserSrv.Classes
             Bolge
         }
 
+        enum MissingWords
+        {
+            mudurlugu,
+            hastanesi,
+            karakolu,
+            cezaevi,
+            evi
+
+
+        }
+
         //sabit regex 
         public const string MahReg = "(( m[ ])|( m[. ])|( mh[ ])|( mh[. ])|( mah[ ])|( mah[. ])|( mahalle.*[ ]))";
         public const string SkReg = "(( s[ ])|( s[. ])|( sk[ ])|( sk[. ])|( sok[ ])|( sok[. ])|( sokak[ ])|( sokak.)|( sokağ.*[ ])|( sokag.*[ ])|( cikmazi.*[ ]))";
@@ -54,7 +65,7 @@ namespace AddParserSrv.Classes
 
 
         public const string BolgeReg = "(( kamp.*[ ])|( karakol.*[ ])|( hastane.*[ ])|( hastahane.*[ ])|( ceza[ ]evi.*[ ])|( cezaevi.*[ ])|( e. mudur. *[ ])|" +
-          " ( emniyetmudurlugu.*[ ])|( emniyet[ ]mudurlugu.*[ ]))";
+          " ( emniyetmudurlugu.*[ ])|( emniyet[ ]mudurlugu.*[ ])|( emniyet.*[ ])|( huzurevi.*[ ]))";
 
 
         #endregion
@@ -123,10 +134,18 @@ namespace AddParserSrv.Classes
                         case SearchType.Bolge:
 
                             addr.Bolge = word[2];
-                            if (addr.Bolge.Contains("emniyet"))
-                            {
-                                addr.Bolge = word[2] + " mudurlugu";
-                            }
+
+                           addr.Bolge= specialCases(addr.Bolge);
+
+                            //if (addr.Bolge.Contains("emniyet"))
+                            //{
+                            //    addr.Bolge = word[2] + " " + MissingWords.mudurlugu;
+                            //}
+                            //if (addr.Bolge.Contains("ceza"))
+                            //{
+
+                            //    addr.Bolge = word[2] + MissingWords.evi;
+                            //}
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -211,7 +230,7 @@ namespace AddParserSrv.Classes
             {
 
 
-                //LogUtil.WriteLog(LogLevel.ERROR, String.Format(" Importance : {0} DATE: {1} *** {2}: {3}", importance.High, (DateTime.Now).ToString(), statics.error, ex.Message));
+                LogUtil.WriteLog(LogLevel.ERROR, String.Format(" Importance : {0} DATE: {1} *** {2}: {3}", importance.High, (DateTime.Now).ToString(), statics.error, ex.Message));
                 return new AddressDT() { Il = "boş gelen adres" };
             }
 
@@ -222,6 +241,17 @@ namespace AddParserSrv.Classes
         ///for special cases only
         /// </summary>
         /// 
+        private static string specialCases(string completeString)
+        {
+
+
+            if (completeString.Contains("emniyet"))  completeString = completeString + " " + MissingWords.mudurlugu;
+
+            if (completeString.Contains("ceza")) completeString = completeString + " " + MissingWords.evi;
+
+            return completeString;
+
+        }
 
         private static string addressCorrection(string address)
         {

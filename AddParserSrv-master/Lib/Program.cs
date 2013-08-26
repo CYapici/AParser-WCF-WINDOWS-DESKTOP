@@ -12,11 +12,10 @@ namespace testApp
         static void Main(string[] args)
         {
 
-            Console.Write(statics.error);
 
             AddParserSrv.AddressParserSRV cs = new AddParserSrv.AddressParserSRV();
 
-            var m = cs.ParseAddressFromString("Ömür Tepe Caddesi Tarabya Mahallesi Bolat Sokak Yıldırım Apartmanı Kat 1 no 4 sarıyer / istanbul");
+            var m = cs.ParseAddressFromString("");
 
 
             Console.WriteLine(string.Format("bolge : {0}", m.Bolge));
