@@ -103,35 +103,35 @@ namespace AddParserSrv.Classes
                     switch (item.Value)
                     {
                         case SearchType.Mah:
-                            addr.Mahalle = word[0];
+                            addr.Mahalle = removeUnwanted(word[0]);
                             break;
                         case SearchType.Sok:
-                            addr.Sokak = word[0];
+                            addr.Sokak = removeUnwanted(word[0]);
                             break;
                         case SearchType.Apt:
-                            addr.Bina = word[0];
+                            addr.Bina = removeUnwanted(word[0]);
                             break;
                         case SearchType.Cad:
                             addr.Cadde = removeUnwanted(word[0]);
 
                             break;
                         case SearchType.Site:
-                            addr.Site = word[0];
+                            addr.Site = removeUnwanted(word[0]);
                             break;
                         case SearchType.Bulv:
-                            addr.Bulv = word[0];
+                            addr.Bulv = removeUnwanted(word[0]);
                             break;
                         case SearchType.No:
-                            addr.No = word[0];
+                            addr.No = removeUnwanted(word[0]);
                             break;
                         case SearchType.Kat:
-                            addr.Kat = word[0];
+                            addr.Kat = removeUnwanted(word[0]);
                             break;
                         case SearchType.Daire:
-                            addr.Daire = word[0];
+                            addr.Daire = removeUnwanted(word[0]);
                             break;
                         case SearchType.Blok:
-                            addr.Blok = word[0];
+                            addr.Blok = removeUnwanted(word[0]);
                             break;
                         case SearchType.Bolge:
 
