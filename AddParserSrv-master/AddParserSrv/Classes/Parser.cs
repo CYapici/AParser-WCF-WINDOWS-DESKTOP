@@ -253,6 +253,7 @@ namespace AddParserSrv.Classes
 
         }
 
+        
         private static string specialCases(string completeString)
         {
 
