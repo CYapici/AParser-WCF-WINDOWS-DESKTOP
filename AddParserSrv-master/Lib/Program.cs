@@ -19,6 +19,7 @@ namespace testApp
                
                 Console.ReadLine();
             }
+
             //string[] lines = File.ReadAllLines("C:\\rearrange.txt");
             //List<string> stringfyList = new List<string>();
 
